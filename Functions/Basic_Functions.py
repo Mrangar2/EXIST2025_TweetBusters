@@ -7,7 +7,10 @@ import torch
 from torch.utils.data import Dataset
 from sklearn.metrics import precision_recall_fscore_support, accuracy_score
 
-from pyevall import PyEvALLEvaluation, PyEvALLUtils, MetricFactory
+from pyevall.evaluation import PyEvALLEvaluation
+from pyevall.metrics.metricfactory import MetricFactory
+from pyevall.reports.reports import PyEvALLReport
+from pyevall.utils.utils import PyEvALLUtils
 
 class SexismDataset(Dataset):
     def __init__(self, texts, labels, ids, tokenizer, max_len=128, pad="max_length", trunc=True,rt='pt'):

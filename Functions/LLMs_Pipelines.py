@@ -18,6 +18,7 @@ from pyevall.metrics.metricfactory import MetricFactory
 from pyevall.reports.reports import PyEvALLReport
 from pyevall.utils.utils import PyEvALLUtils
 
+from Basic_Functions import ICMWrapper
 from huggingface_hub import login
 
 def get_model(model_path):
@@ -76,9 +77,6 @@ def simple_prompting_model(model, tokenizer, prompt):
     return response
 
 #######################################################################################################
-sexist_tweets = "i didntmean that hes not a whore hes an empowered woman who can  do whatever he wants with her body im so sorry"
-prompt = f"Input: Determine if the tweet {sexist_tweets} contains sexist language or not. Output:"
-simple_prompting_model(model, tokenizer, prompt)
 
 def perform_incontext_classification(model, tokenizer, prompt, ntokens=8, nseq=1, temp=0.7):
     inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
@@ -123,7 +121,7 @@ def output_postprocessing_incontext_zero_s1(output):
 def incontext_zero_pipeline_task1(model, tokenizer, devData, testData, postprocess, **params):
 
     role= "in social psychology and linguistics with vast experience analyzing social media content and discriminative and harmful language"
-    task ="""Sexist identification task is a binaty text classification task which aim at determining
+    task ="""Sexist identification task is a binary text classification task which aim at determining
     whether or not a given tweet expresses ideas related to sexism in any of the three forms: it is sexist itself,
     it describes a sexist situation in which discrimination towards women occurs, or criticizes a sexist behaviour.
     The tweet is sexist (YES) or describes or criticizes a sexist situation. Not sexist. The tweet is not sexist (NO),
@@ -219,7 +217,7 @@ def incontext_zero_pipeline_task2(model, tokenizer, devData, testData, postproce
     JUDGEMENTAL the intention is to condemn and critizise sexist situations or behaviours.
     DIRECT: The intention is to write a message that is sexist by itself or incites to be sexist.
      """
-    output= "The output is a single label: REPORTED/JUDGEMENTAL/DIRECT."
+    output= "The output is a single label: REPORTED/JUDGEMENTAL/DIRECT/-."
     context=None
 
     ntokens=params.get("max_new_tokens", 8)
@@ -249,7 +247,7 @@ def incontext_zero_pipeline_task2(model, tokenizer, devData, testData, postproce
         'label': predictions,
         "tweet": textqueries,
         "test_case": ["EXIST2025"]*len(predictions) })
-    dev_df.to_csv('sexism_dev_predictions_task2.csv', index=False)
+    dev_df.to_csv('/content/drive/MyDrive/EXISTS2025/Results/sexism_dev_predictions_task2.csv', index=False)
     print("Evaluation TASK2 completed. Results saved to sexism_dev_predictions_task2.csv")
 
     #Computing the quality measure for the subtask 2
@@ -477,7 +475,7 @@ def sampling_few_instances(trainData, nexamples):
 def incontext_few_pipeline_task1(model, tokenizer, trainData, devData, testData, postprocessing,**params):
 
     role= "in social psychology and linguistics with vast experience analyzing social media content and discriminative and harmful language"
-    task ="""Sexist identification task is a binaty text classification task which aim at determining
+    task ="""Sexist identification task is a binary text classification task which aim at determining
     whether or not a given tweet expresses ideas related to sexism in any of the three forms: it is sexist itself,
     it describes a sexist situation in which discrimination towards women occurs, or criticizes a sexist behaviour.
     The tweet is sexist (YES) or describes or criticizes a sexist situation. Not sexist. The tweet is not sexist (NO),
@@ -537,7 +535,7 @@ def incontext_few_pipeline_task1(model, tokenizer, trainData, devData, testData,
         'id': idqueries,
         'label': test_predictions,
         "test_case": ["EXIST2025"]*len(test_predictions) })
-    submission_df.to_csv('sexism_predictions_task1_few.csv', index=False)
+    submission_df.to_csv('/content/drive/MyDrive/EXISTS2025/results/sexism_predictions_task1_few.csv', index=False)
     print("Prediction TASK1 completed. Results saved to sexism_predictions_task1_few.csv")
 
 def output_postprocessing_incontext_few_s2(output):
