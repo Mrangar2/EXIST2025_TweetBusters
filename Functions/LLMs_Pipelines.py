@@ -154,7 +154,7 @@ def incontext_zero_pipeline_task1(model, tokenizer, devData, testData, postproce
 
     # Create dev output DataFrame
     dev_df = pd.DataFrame({ 'id': idqueries,  'label': predictions, "tweet": textqueries, "test_case": ["EXIST2025"]*len(predictions) })
-    dev_df.to_csv('sexism_dev_predictions_task1.csv', index=False)
+    dev_df.to_csv('/content/drive/MyDrive/EXISTS2025_TweetBusters/Results/LLMs/sexism_dev_predictions_task1.csv', index=False)
     print("Prediction TASK1 completed. Results saved to sexism_dev_predictions_task1.csv")
 
     #Computing the quality measure for the subtask 1
@@ -174,7 +174,7 @@ def incontext_zero_pipeline_task1(model, tokenizer, devData, testData, postproce
         print("ID: ", idqueries[i],  "Predicted: ", pred)
         # Create submission DataFrame
     submission_df = pd.DataFrame({'id': idqueries, 'label': test_predictions, "test_case": ["EXIST2025"]*len(test_predictions) })
-    submission_df.to_csv('sexism_predictions_task1.csv', index=False)
+    submission_df.to_csv('/content/drive/MyDrive/EXISTS2025_TweetBusters/Results/LLMs/sexism_predictions_task1.csv', index=False)
     print("Prediction TASK1 completed. Results saved to sexism_predictions_task1.csv")
 
 
@@ -247,7 +247,7 @@ def incontext_zero_pipeline_task2(model, tokenizer, devData, testData, postproce
         'label': predictions,
         "tweet": textqueries,
         "test_case": ["EXIST2025"]*len(predictions) })
-    dev_df.to_csv('/content/drive/MyDrive/EXISTS2025/Results/sexism_dev_predictions_task2.csv', index=False)
+    dev_df.to_csv('/content/drive/MyDrive/EXISTS2025_TweetBusters/Results/LLMs/sexism_dev_predictions_task2.csv', index=False)
     print("Evaluation TASK2 completed. Results saved to sexism_dev_predictions_task2.csv")
 
     #Computing the quality measure for the subtask 2
@@ -274,7 +274,7 @@ def incontext_zero_pipeline_task2(model, tokenizer, devData, testData, postproce
         'id': idqueries,
         'label': test_predictions,
         "test_case": ["EXIST2025"]*len(test_predictions) })
-    submission_df.to_csv('sexism_predictions_task2.csv', index=False)
+    submission_df.to_csv('/content/drive/MyDrive/EXISTS2025_TweetBusters/Results/LLMs/sexism_predictions_task2.csv', index=False)
     print("Prediction TASK2 completed. Results saved to sexism_predictions_task2.csv")
 
 def output_postprocessing_incontext_zero_s3(output):
@@ -355,7 +355,7 @@ def incontext_zero_pipeline_task3(model, tokenizer, devData, testData, postproce
         'label': predictions,
         "tweet": textqueries,
         "test_case": ["EXIST2025"]*len(predictions) })
-    dev_df.to_csv('sexism_dev_predictions_task3.csv', index=False)
+    dev_df.to_csv('/content/drive/MyDrive/EXISTS2025_TweetBusters/Results/LLMs/sexism_dev_predictions_task3.csv', index=False)
     print("Evaluation TASK3 completed. Results saved to sexism_dev_predictions_task3.csv")
 
     #Computing the quality measure for the subtask 1
@@ -381,7 +381,7 @@ def incontext_zero_pipeline_task3(model, tokenizer, devData, testData, postproce
         'id': idqueries,
         'label': test_predictions,
         "test_case": ["EXIST2025"]*len(test_predictions) })
-    submission_df.to_csv('sexism_predictions_task3.csv', index=False)
+    submission_df.to_csv('/content/drive/MyDrive/EXISTS2025_TweetBusters/Results/LLMs/sexism_predictions_task3.csv', index=False)
     print("Prediction TASK3 completed. Results saved to sexism_predictions_task3.csv")
 
 def create_incontext_few_prompt(task_description, exemplars, query, context=None, role=None, output=None):
@@ -508,7 +508,7 @@ def incontext_few_pipeline_task1(model, tokenizer, trainData, devData, testData,
 
     # Create dev output DataFrame
     dev_df = pd.DataFrame({'id': idqueries,  'label': predictions, "tweet": textqueries, "test_case": ["EXIST2025"]*len(predictions) })
-    dev_df.to_csv('sexism_dev_predictions_task1_few.csv', index=False)
+    dev_df.to_csv('/content/drive/MyDrive/EXISTS2025_TweetBusters/Results/LLMs/sexism_dev_predictions_task1_few.csv', index=False)
     print("Prediction TASK1 completed. Results saved to sexism_dev_predictions_task1_few.csv")
 
     #Computing the quality measure for the subtask 1
@@ -535,7 +535,7 @@ def incontext_few_pipeline_task1(model, tokenizer, trainData, devData, testData,
         'id': idqueries,
         'label': test_predictions,
         "test_case": ["EXIST2025"]*len(test_predictions) })
-    submission_df.to_csv('/content/drive/MyDrive/EXISTS2025/results/sexism_predictions_task1_few.csv', index=False)
+    submission_df.to_csv('/content/drive/MyDrive/EXISTS2025_TweetBusters/Results/LLMs/sexism_predictions_task1_few.csv', index=False)
     print("Prediction TASK1 completed. Results saved to sexism_predictions_task1_few.csv")
 
 def output_postprocessing_incontext_few_s2(output):
@@ -645,7 +645,7 @@ def incontext_few_pipeline_task2(model, tokenizer, trainData, devData, testData,
 
     # Create dev output DataFrame
     dev_df = pd.DataFrame({'id': idqueries,  'label': predictions, "tweet": textqueries, "test_case": ["EXIST2025"]*len(predictions) })
-    dev_df.to_csv('sexism_dev_predictions_task2_few.csv', index=False)
+    dev_df.to_csv('/content/drive/MyDrive/EXISTS2025_TweetBusters/Results/LLMs/sexism_dev_predictions_task2_few.csv', index=False)
     print("Prediction TASK2 completed. Results saved to sexism_dev_predictions_task2_few.csv")
 
     #Computing the quality measure for the subtask 1
@@ -672,7 +672,7 @@ def incontext_few_pipeline_task2(model, tokenizer, trainData, devData, testData,
         'id': idqueries,
         'label': test_predictions,
         "test_case": ["EXIST2025"]*len(test_predictions) })
-    submission_df.to_csv('sexism_predictions_task2_few.csv', index=False)
+    submission_df.to_csv('/content/drive/MyDrive/EXISTS2025_TweetBusters/Results/LLMs/sexism_predictions_task2_few.csv', index=False)
     print("Prediction TASK2 completed. Results saved to sexism_predictions_task2_few.csv")
 
 def output_postprocessing_incontext_zero_s3(output):
@@ -750,7 +750,7 @@ def incontext_few_pipeline_task3(model, tokenizer, trainData, devData, testData,
 
     # Create dev output DataFrame
     dev_df = pd.DataFrame({'id': idqueries,  'label': predictions, "tweet": textqueries, "test_case": ["EXIST2025"]*len(predictions) })
-    dev_df.to_csv('sexism_dev_predictions_task3_few.csv', index=False)
+    dev_df.to_csv('/content/drive/MyDrive/EXISTS2025_TweetBusters/Results/LLMs/sexism_dev_predictions_task3_few.csv', index=False)
     print("Prediction TASK3 completed. Results saved to sexism_dev_predictions_task3_few.csv")
 
     #Computing the quality measure for the subtask 3
@@ -776,7 +776,7 @@ def incontext_few_pipeline_task3(model, tokenizer, trainData, devData, testData,
         'id': idqueries,
         'label': test_predictions,
         "test_case": ["EXIST2025"]*len(test_predictions) })
-    submission_df.to_csv('sexism_predictions_task3_few.csv', index=False)
+    submission_df.to_csv('/content/drive/MyDrive/EXISTS2025_TweetBusters/Results/LLMs/sexism_predictions_task3_few.csv', index=False)
     print("Prediction TASK3 completed. Results saved to sexism_predictions_task3_few.csv")
 
  

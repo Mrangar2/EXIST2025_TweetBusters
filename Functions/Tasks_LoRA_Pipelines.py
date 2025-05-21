@@ -119,8 +119,8 @@ def sexism_classification_pipeline_task1_LoRA(trainInfo, devInfo, testInfo=None,
             'label': labelEnc.inverse_transform(predicted_labels),
             "test_case": ["EXIST2025"]*len(predicted_labels)
         })
-        submission_df.to_csv('sexism_predictions_task1.csv', index=False)
-        print("Prediction for TASK 1 completed. Results saved to sexism_predictions_task1.csv")
+        submission_df.to_csv('/content/drive/MyDrive/EXISTS2025_TweetBusters/Res1lts/LoRA/sexism_predictions_task1_LoRA.csv', index=False)
+        print("Prediction for TASK 1 completed. Results saved to sexism_predictions_task1_LoRA.csv")
         return mixModel, submission_df
     return mixModel, eval_results
 
@@ -224,8 +224,8 @@ def sexism_classification_pipeline_task2_LoRA(trainInfo, devInfo, testInfo=None,
             'label': labelEnc.inverse_transform(predicted_labels),
             "test_case": ["EXIST2025"]*len(predicted_labels)
         })
-        submission_df.to_csv('sexism_predictions_task2.csv', index=False)
-        print("Prediction for TASK 2 completed. Results saved to sexism_predictions_task1.csv")
+        submission_df.to_csv('/content/drive/MyDrive/EXISTS2025_TweetBusters/Results/LoRA/sexism_predictions_task2_LoRA.csv', index=False)
+        print("Prediction for TASK 2 completed. Results saved to sexism_predictions_task2_LoRA.csv")
         return mixModel, submission_df
     return mixModel, eval_results
 
@@ -356,7 +356,7 @@ def sexism_classification_pipeline_task3_LoRA(trainInfo, devInfo, testInfo=None,
             'label': labelEnc.inverse_transform(predicted_labels),
             'test_case': ["EXIST2025"] * len(predicted_labels)
         })
-        submission_df.to_csv('sexism_predictions_task3_LoRA.csv', index=False)
+        submission_df.to_csv('/content/drive/MyDrive/EXISTS2025_TweetBusters/Results/LoRA/sexism_predictions_task3_LoRA.csv', index=False)
         print("Prediction for TASK 3 (LoRA) completed. Results saved to sexism_predictions_task3_LoRA.csv")
         return mixModel, submission_df
 

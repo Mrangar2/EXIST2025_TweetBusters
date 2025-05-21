@@ -53,11 +53,11 @@ class EXISTReader:
                       }
 
         splits = set()
-        with open(self.file, 'r', encoding='utf-8') as mytrain:
+
+        with open(self.file, 'r', encoding="utf8") as mytrain:
             entries = json.load(mytrain)
-            for entryid in entries:
-                entry = entries[entryid]
-                #print(entry)
+
+            for entryid, entry in entries.items():
                 
                 split, lang = entry['split'].split("_")
                 splits.add(split)
@@ -81,34 +81,41 @@ class EXISTReader:
 
         assert len(splits) == 1
         split = list(splits)
-        allData= {
-            "id": self.dataset["EN"]["id"] + self.dataset["ES"]["id"],
-            "text": self.dataset["EN"]["text"] + self.dataset["ES"]["text"],
-            "label1": self.dataset["EN"]["label1"] + self.dataset["ES"]["label1"],
-            "label2": self.dataset["EN"]["label2"] + self.dataset["ES"]["label2"],
-            "label3": self.dataset["EN"]["label3"] + self.dataset["ES"]["label3"],
-            "language": ["EN"] * len(self.dataset["EN"]["id"]) + ["ES"] * len(self.dataset["ES"]["id"]),
 
-        }
-
-        self.dataframe = pd.DataFrame(allData, columns=["id", "text", "label1", "label2", "label3", "language"], index=None)
-
+        self.hasLabels = True if len(self.dataset["EN"]["label1"]) > 0 else False
+        
+        if self.hasLabels is True:
+            allData= {
+                "id": self.dataset["EN"]["id"] + self.dataset["ES"]["id"],
+                "text": self.dataset["EN"]["text"] + self.dataset["ES"]["text"],
+                "label1": self.dataset["EN"]["label1"] + self.dataset["ES"]["label1"],
+                "label2": self.dataset["EN"]["label2"] + self.dataset["ES"]["label2"],
+                "label3": self.dataset["EN"]["label3"] + self.dataset["ES"]["label3"],
+                "language": ["EN"] * len(self.dataset["EN"]["id"]) + ["ES"] * len(self.dataset["ES"]["id"]),
+            }
+            self.dataframe = pd.DataFrame(allData, columns=["id", "text", "label1", "label2", "label3", "language"], index=None)
+        else:
+            allData = {
+                "id": self.dataset["EN"]["id"] + self.dataset["ES"]["id"],
+                "text": self.dataset["EN"]["text"] + self.dataset["ES"]["text"],
+                "language": ["EN"] * len(self.dataset["EN"]["id"]) + ["ES"] * len(self.dataset["ES"]["id"]),
+            }
+            self.dataframe = pd.DataFrame(allData, columns=["id", "text", "language"], index=None)
+            
 
     def get(self, lang="EN", subtask="1"):
         data=None
+        data = self.dataframe[self.dataframe["language"] == lang.upper()]
+        if  self.hasLabels is False:
+                return data["id"], data["text"]
         if subtask == "1":
-            data = self.dataframe[self.dataframe["language"] == lang.upper()]
             data = data[data["label1"].isin(["YES","NO"])]
             return data["id"], data["text"], data["label1"]
-
         if subtask == "2":
-            data= self.dataframe[self.dataframe["language"] == lang.upper()]
             data = data[data["label1"].isin(["YES","NO"])]
-            data = data[data["label2"].isin(['-','JUDGEMENTAL','REPORTED', 'DIRECT'])]
+            data = data[data["label2"].isin(['JUDGEMENTAL','REPORTED', 'DIRECT'])]
             return data["id"], data["text"], data["label2"]
-
         if subtask == "3":
-            data= self.dataframe[self.dataframe["language"] == lang.upper()]
             data = data[data["label1"].isin(["YES","NO"])]
             data = data[data["label3"] != 'AMBIGUOUS']
             return data["id"], data["text"], data["label3"]
